@@ -1,0 +1,10 @@
+<h1>小组查看页面</h1>
+<p>
+  <strong>小组名</strong>
+  <%= @group.groupname %>
+</p>
+<%= link_to "查看小组列表", groups_path %>
+<%= link_to "编辑小组", edit_group_path(@group) %>
+<%= link_to '删除小组', group_path(@group),
+              method: :delete,
+              data: { confirm: '您确定吗？' } %></td>
