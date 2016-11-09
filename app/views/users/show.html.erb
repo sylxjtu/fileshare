@@ -1,0 +1,31 @@
+<h1>用户查看页面</h1>
+<p>
+  <strong>用户名</strong>
+  <%= @user.username %>
+</p>
+<p>
+  <strong>昵称</strong>
+  <%= @user.nickname %>
+</p>
+<p>
+  <%= @user.groups.count() %>个小组
+  <table>
+    <thead>
+      <tr>
+        <td>小组名</td>
+        <td>操作</td>
+      </tr>
+    <tbody>
+      <% @user.groups.each() do |group| %>
+        <tr>
+          <td><%= link_to group.groupname, group_path(group) %></td>
+        </tr>
+        <% end %>
+    </tbody>
+  </table>
+</p>
+<%= link_to "查看用户列表", users_path %>
+<%= link_to "编辑用户", edit_user_path(@user) %>
+<%= link_to '删除用户', user_path(@user),
+              method: :delete,
+              data: { confirm: '您确定吗？' } %></td>
