@@ -1,0 +1,14 @@
+<p>
+  <% if session[:uid] %>
+    <strong>欢迎您</strong>
+    <%= User.find(session[:uid]).username %>
+    (<%= User.find(session[:uid]).nickname %>)
+    <%= link_to "登出", logout_url %>
+  <% else %>
+    <strong>欢迎您，请</strong>
+    <%= link_to "登录", login_url %>
+  <% end %>
+  <%= link_to "用户列表", users_url %>
+  <%= link_to "小组列表", groups_url %>
+</p>
+<hr>

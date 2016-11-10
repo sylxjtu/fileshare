@@ -42,6 +42,20 @@ class GroupsController < ApplicationController
     redirect_to groups_path
   end
 
+  def join
+    @group = Group.find(params[:id])
+    @user = User.find(session[:uid])
+    Membership.new({user: @user, group: @group}).save
+    redirect_to(:back)
+  end
+
+  def drop
+    @group = Group.find(params[:id])
+    @user = User.find(session[:uid])
+    @group.users.delete(@user)
+    redirect_to(:back)
+  end
+
   private
   def group_params
     params.require(:group).permit(:groupname)
