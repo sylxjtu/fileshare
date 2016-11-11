@@ -5,4 +5,11 @@ class MessagesController < ApplicationController
       redirect_to(root_url)
     end
   end
+
+  def destroy
+    @message = Message.find(params[:id])
+    @message.destroy
+
+    redirect_to user_path(session[:uid])
+  end
 end

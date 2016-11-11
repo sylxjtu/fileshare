@@ -26,7 +26,7 @@
     <%= link_to "编辑小组", edit_group_path(@group) %>
     <%= link_to '删除小组', group_path(@group),
       method: :delete,
-      data: { confirm: '您确定吗？' } %></td>
+      data: { confirm: '您确定吗？' } %>
   <% elsif @group.users.exists?(session[:uid]) %>
     <%= link_to "离开小组", drop_group_path(@group) %>
   <% end %>

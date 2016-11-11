@@ -14,3 +14,8 @@
   <strong>内容</strong>
   <pre><%= @message.content %></pre>
 </p>
+<% if session[:uid] == @message.to_user.id %>
+  <%= link_to '删除邮件', message_path(@message),
+    method: :delete,
+    data: { confirm: '您确定吗？' } %>
+<% end %>

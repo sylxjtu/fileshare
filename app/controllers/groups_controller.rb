@@ -71,14 +71,14 @@ class GroupsController < ApplicationController
       @message.to_user = User.find(user.id)
       @message.save!
     end
-    redirect_to(users_path(session[:uid]))
+    redirect_to(user_path(session[:uid]))
   end
 
   private
   def group_params
     params.require(:group).permit(:groupname)
   end
-  
+
   private
   def message_params
     params.require(:message).permit(:title, :content)
