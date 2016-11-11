@@ -74,6 +74,24 @@ class GroupsController < ApplicationController
     redirect_to(user_path(session[:uid]))
   end
 
+  def new_document
+    @group = Group.find(params[:id])
+    @document = Document.new
+  end
+
+  def upload_document
+    @group = Group.find(params[:id])
+    @document = Document.new(document_params)
+    upload_file = params[:document][:content]
+    @document.filename = upload_file.original_filename
+    @document.group = @group
+    @document.save!
+    File.open(document_file_path(@document), 'wb') do |file|
+      file.write(upload_file.read)
+    end
+    redirect_to(group_path(@group))
+  end
+
   private
   def group_params
     params.require(:group).permit(:groupname)
@@ -82,5 +100,15 @@ class GroupsController < ApplicationController
   private
   def message_params
     params.require(:message).permit(:title, :content)
+  end
+
+  private
+  def document_params
+    params.require(:document).permit(:content)
+  end
+
+  private
+  def document_file_path(document)
+    Rails.root.join('public', 'uploads', String(document.id) + File.extname(document.filename))
   end
 end

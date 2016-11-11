@@ -1,0 +1,10 @@
+<%= form_for @document, action: 'post', url: upload_document_group_url(@group) do |f| %>
+  <p>
+    <strong>选择文件</strong>
+    <br>
+    <%= f.file_field :content %>
+  </p>
+  <p>
+    <%= f.submit "发送" %>
+  </p>
+<% end %>

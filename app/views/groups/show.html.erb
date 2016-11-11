@@ -20,6 +20,16 @@
       <% end %>
     </tbody>
   </table>
+  <% if @group.users.exists?(session[:uid]) %>
+    <p>
+      <%= @group.documents.count() %>个共享文件
+      <ul>
+        <% @group.documents.each do |document| %>
+          <li><%= link_to document.filename, document_url_path(document) %></li>
+        <% end %>
+      </ul>
+    </p>
+  <% end %>
 </p>
 <% if session[:uid] %>
   <% if @group.users.count == 0 or @group.users.first.id == session[:uid] %>
@@ -38,5 +48,6 @@
 
 <% if session[:uid] %>
   <%= link_to "发送邮件", new_message_group_url(@group) %>
+  <%= link_to "上传文件", new_document_group_url(@group) %>
 <% end %>
 <%= link_to "查看小组列表", groups_path %>

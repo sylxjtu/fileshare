@@ -1,7 +1,7 @@
 <p>
   <% if session[:uid] %>
     <strong>欢迎您</strong>
-    <%= User.find(session[:uid]).username %>
+    <%= link_to User.find(session[:uid]).username, user_path(User.find(session[:uid])) %>
     (<%= User.find(session[:uid]).nickname %>)
     <%= link_to "登出", logout_url %>
   <% else %>
