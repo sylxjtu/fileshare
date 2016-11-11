@@ -27,6 +27,9 @@ class UsersController < ApplicationController
   end
 
   def update
+    if @user.id != session[:uid]
+      redirect_to(:back)
+    end
     @user = User.find(params[:id])
 
     if @user.update(user_params)
@@ -37,6 +40,9 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    if @user.id != session[:uid]
+      redirect_to(:back)
+    end
     @user = User.find(params[:id])
     @user.destroy
 
@@ -59,7 +65,20 @@ class UsersController < ApplicationController
 
   def logout
     session[:uid] = nil
-    redirect_to users_path
+    redirect_to root_url
+  end
+
+  def new_message
+    @user = User.find(params[:id])
+    @message = Message.new
+  end
+
+  def send_message
+    @message = Message.new(message_params)
+    @message.from_user = User.find(session[:uid])
+    @message.to_user = User.find(params[:id])
+    @message.save!
+    redirect_to(users_path(@message.from_user))
   end
 
   private
@@ -70,5 +89,10 @@ class UsersController < ApplicationController
   private
   def login_params
     params.require(:user).permit(:username, :password)
+  end
+
+  private
+  def message_params
+    params.require(:message).permit(:title, :content)
   end
 end

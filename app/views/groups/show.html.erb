@@ -17,17 +17,26 @@
           <td><%= link_to user.username, user_path(user) %></td>
           <td><%= user.nickname %></td>
         </tr>
-        <% end %>
+      <% end %>
     </tbody>
   </table>
 </p>
-<% if @group.users.exists?(session[:uid]) %>
-  <%= link_to "离开小组", drop_group_path(@group) %>
-<% else %>
-  <%= link_to "加入小组", join_group_path(@group) %>
+<% if session[:uid] %>
+  <% if @group.users.count == 0 or @group.users.first.id == session[:uid] %>
+    <%= link_to "编辑小组", edit_group_path(@group) %>
+    <%= link_to '删除小组', group_path(@group),
+      method: :delete,
+      data: { confirm: '您确定吗？' } %></td>
+  <% elsif @group.users.exists?(session[:uid]) %>
+    <%= link_to "离开小组", drop_group_path(@group) %>
+  <% end %>
+
+  <% if not @group.users.exists?(session[:uid]) %>
+    <%= link_to "加入小组", join_group_path(@group) %>
+  <% end %>
+<% end %>
+
+<% if session[:uid] %>
+  <%= link_to "发送邮件", new_message_group_url(@group) %>
 <% end %>
 <%= link_to "查看小组列表", groups_path %>
-<%= link_to "编辑小组", edit_group_path(@group) %>
-<%= link_to '删除小组', group_path(@group),
-              method: :delete,
-              data: { confirm: '您确定吗？' } %></td>

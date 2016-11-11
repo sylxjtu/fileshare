@@ -15,8 +15,32 @@
     <% end %>
   </ul>
 </p>
+<% if session[:uid] and @user.id == session[:uid] %>
+  <p>
+    <%= @user.recieved_messages.count() %>个收到邮件
+    <ul>
+      <% @user.recieved_messages.all.each do |message| %>
+        <li><%= link_to message.title, message_path(message) %></li>
+      <% end %>
+    </ul>
+  </p>
+  <p>
+    <%= @user.sent_messages.count() %>个发出邮件
+    <ul>
+      <% @user.sent_messages.all.each do |message| %>
+        <li><%= link_to message.title, message_path(message) %></li>
+      <% end %>
+    </ul>
+  </p>
+<% end %>
+
+<% if @user.id == session[:uid] %>
+  <%= link_to "编辑用户", edit_user_path(@user) %>
+  <%= link_to '删除用户', user_path(@user),
+                method: :delete,
+                data: { confirm: '您确定吗？' } %>
+<% end %>
+<% if session[:uid] %>
+  <%= link_to "发送邮件", new_message_user_url(@user) %>
+<% end %>
 <%= link_to "查看用户列表", users_path %>
-<%= link_to "编辑用户", edit_user_path(@user) %>
-<%= link_to '删除用户', user_path(@user),
-              method: :delete,
-              data: { confirm: '您确定吗？' } %></td>

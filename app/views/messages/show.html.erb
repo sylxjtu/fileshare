@@ -1,0 +1,16 @@
+<p>
+  <strong>发件人</strong>
+  <%= @message.from_user.username %>(<%= @message.from_user.nickname %>)
+</p>
+<p>
+  <strong>收件人</strong>
+  <%= @message.to_user.username %>(<%= @message.to_user.nickname %>)
+</p>
+<p>
+  <strong>标题</strong>
+  <%= @message.title %>
+</p>
+<p>
+  <strong>内容</strong>
+  <pre><%= @message.content %></pre>
+</p>

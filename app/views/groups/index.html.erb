@@ -4,4 +4,6 @@
     <li><%= link_to (group.groupname), group_path(group) %></li>
   <% end %>
 </ul>
-<%= link_to "创建小组", new_group_path %>
+<% if session[:uid] %>
+  <%= link_to "创建小组", new_group_path %>
+<% end %>

@@ -1,0 +1,15 @@
+<%= form_for @message, action: 'post', url: send_message_user_url(@user) do |f| %>
+  <p>
+    <strong>标题</strong>
+    <br>
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <strong>内容</strong>
+    <br>
+    <%= f.text_area :content %>
+  </p>
+  <p>
+    <%= f.submit "发送" %>
+  </p>
+<% end %>

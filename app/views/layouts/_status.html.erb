@@ -7,8 +7,12 @@
   <% else %>
     <strong>欢迎您，请</strong>
     <%= link_to "登录", login_url %>
+    <strong>或</strong>
+    <%= link_to "注册", new_user_url %>
   <% end %>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <%= link_to "用户列表", users_url %>
   <%= link_to "小组列表", groups_url %>
+  <%= link_to "主页", root_url %>
 </p>
 <hr>
